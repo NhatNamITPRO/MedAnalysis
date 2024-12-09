@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- link libary reset css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+    <!-- link fornt word -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- link libary icon -->
+    <link rel="stylesheet" href="./assets/fonts/fontawesome-free-6.2.1-web/css/all.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+        crossorigin="anonymous"
+    />
+    <script type="module">
+        import * as nifti from 'https://cdn.jsdelivr.net/npm/nifti-reader-js@0.6.8/+esm';
+        window.nifti = nifti;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <link rel="stylesheet" href="./assets/fonts/themify-icons/themify-icons.css">
+    <!-- link icon title web -->
+    <link rel="icon" href="./assets/images/logo.png" type="image/x-icon">
+    <!-- link file css -->
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+<body>
+    <div class="main">
+       <div class="header">
+            <img src="./assets/images/logo.png" alt="LOGO" class="logo">
+            <h1>Medical Analytics Systems</h1>
+       </div>
+       <div class="container">
+        <div id="home" class="">
+            <div class="nav">
+                <label class="button nav-btn" for="file-upload">
+                    UPLOAD
+                    <input type="file" id="file-upload" class="file-input" accept=".jpg, .jpeg, .png, .zip"/>
+                </label>
+                <span id="file-name" class="file-name"></span>
+                <div class="button nav-btn" onclick="view(event)">VIEW</div>
+                <div class="button nav-btn" onclick="predict(event)">PREDICT</div>
+            </div>
+            <div class="content">
+                <div class="options" onclick="choseOption(event)">
+                    <div class="option" id="mri">
+                        <p class="option-text">MRI</p>
+                        <span class="checkmark"><i class="fa-solid fa-circle-check"></i></span>
+                    </div>
+                    <div class="option" id="derma">
+                        <p class="option-text">Da liễu</p>
+                        <span class="checkmark"><i class="fa-solid fa-circle-check"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="predict" class="hidden">
+            <div class="predict-left">  
+                <i class="fa-solid fa-arrow-left back-icon" onclick="home()"></i>
+                <div class="button predict-btn" onclick="predict(event)">PREDICT</div>
+                <canvas class="origin-image"></canvas>
+                <canvas class="predicted-image"></canvas>   
+            </div>
+            <div class="predict-center">
+                <div class="dropdown hidden">
+                    <button class="dropdown-toggle" id="mode-selector">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <ul class="dropdown-menu hidden" id="mode-options">
+                        <li data-mode="flair">FLAIR</li>
+                        <li data-mode="t1">T1</li>
+                        <li data-mode="t1ce">T1CE</li>
+                        <li data-mode="t2">T2</li>
+                    </ul>
+                </div>
+               
+                <div class="box-main-image">
+                    <div id="image-title" class="hidden">FLAIR</div>
+                    <canvas class="main-image"></canvas>
+                    <canvas class="tmp-origin-image hidden"></canvas>
+                    <canvas class="tmp-predict-image hidden"></canvas>
+                    <input type="range" min="0" max="100" value="50" class="slider hidden" id="niiRange">
+                </div>
+                
+                <div class="controls">
+                    <button class="control-icon" id="negative"><i class="fa-solid fa-circle-half-stroke"></i></button>
+                    <button class="control-icon" id="rotate"><i class="fa-solid fa-rotate"></i></button>
+                    <button class="control-icon" id="zoom-in"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button class="control-icon" id="zoom-out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                    <button class="control-icon" id="download"><i class="fa-solid fa-download"></i></button>
+                </div>
+            </div>
+           
+        </div>
+       </div>
+       <footer>Copyright © 2024 - NhatNam_LanAnh</footer>
+       <div id="loading-overlay" class="hidden">
+            <div class="spinner"></div>
+            <p>Predicting...</p>
+        </div>
+    </div>
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
